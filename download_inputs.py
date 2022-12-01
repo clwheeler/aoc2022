@@ -35,5 +35,8 @@ if not os.path.exists(f"day{day}"):
     with open(f"inputs.txt","w") as f:
         f.write(r.text)
 
-# copy template
-os.system(f"cp solution_template.py day{day}/solution.py")
+    # copy template
+    os.system(f"cp solution_template.py day{day}/solution.py")
+
+else:
+    print(f"day{day} already initialized, aborting")
