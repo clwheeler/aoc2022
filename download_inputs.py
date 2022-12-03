@@ -27,6 +27,10 @@ print(f"Initializing day {day}")
 # download inputs
 if not os.path.exists(f"day{day}"):
     os.mkdir(f"day{day}")
+
+    # copy template
+    os.system(f"cp ./solution_template.py day{day}/solution.py")
+
     os.chdir(f"day{day}")
 
     headers = {'User-Agent': 'Mozilla/5.0'}
@@ -34,9 +38,6 @@ if not os.path.exists(f"day{day}"):
     r = requests.get(f"https://adventofcode.com/2022/day/{day}/input", cookies = cj, headers=headers)
     with open(f"inputs.txt","w") as f:
         f.write(r.text)
-
-    # copy template
-    os.system(f"cp ./solution_template.py day{day}/solution.py")
 
 else:
     print(f"day{day} already initialized, aborting")

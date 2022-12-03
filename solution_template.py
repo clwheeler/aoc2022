@@ -23,12 +23,12 @@ def parse_inputs(inputs):
     parsed = inputs.strip().split('\n')
     return parsed
 
-def solve_part1(inputs):
-    inputs = load_inputs(inputs)
+def solve_part1(input_str=None):
+    inputs = load_inputs(input_str)
     return None
 
-def solve_part2(inputs):
-    inputs = load_inputs(inputs)
+def solve_part2(input_str=None):
+    inputs = load_inputs(input_str)
     return None
 
 
