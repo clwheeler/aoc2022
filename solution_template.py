@@ -23,13 +23,12 @@ def parse_inputs(inputs):
     parsed = inputs.strip().split('\n')
     return parsed
 
-
 def solve_part1(inputs):
-    inputs = load_inputs()
+    inputs = load_inputs(inputs)
     return None
 
 def solve_part2(inputs):
-    inputs = load_inputs()
+    inputs = load_inputs(inputs)
     return None
 
 
@@ -37,12 +36,12 @@ def run():
 
     start_time = time.time()
     print("Part 1:")
-    print(solve_part1(test_input))
+    print(solve_part1(test_input_1))
     print("Runtime: {} seconds".format(time.time() - start_time))
 
     start_time = time.time()
     print("Part 2:")
-    print(solve_part2(test_input))
+    print(solve_part2(test_input_2))
     print("Runtime: {} seconds".format(time.time() - start_time))
 
 run()
