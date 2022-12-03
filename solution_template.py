@@ -4,7 +4,8 @@ import sys
 import time
 from itertools import cycle
 
-test_input = """x"""
+test_input_1 = """x"""
+test_input_2 = test_input_1
 
 def load_inputs(input_str=None):
     inputs = []
@@ -23,16 +24,11 @@ def parse_inputs(inputs):
     return parsed
 
 
-
-def solve_example():
-    inputs = load_inputs(test_input)
-    return inputs
-
-def solve_part1():
+def solve_part1(inputs):
     inputs = load_inputs()
     return None
 
-def solve_part2():
+def solve_part2(inputs):
     inputs = load_inputs()
     return None
 
@@ -40,18 +36,13 @@ def solve_part2():
 def run():
 
     start_time = time.time()
-    print("Example:")
-    print(solve_example())
-    print("Runtime: {} seconds".format(time.time() - start_time))
-
-    start_time = time.time()
     print("Part 1:")
-    print(solve_part1())
+    print(solve_part1(test_input))
     print("Runtime: {} seconds".format(time.time() - start_time))
 
     start_time = time.time()
     print("Part 2:")
-    print(solve_part2())
+    print(solve_part2(test_input))
     print("Runtime: {} seconds".format(time.time() - start_time))
 
 run()
