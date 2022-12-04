@@ -58,10 +58,11 @@ def solve_part2(input_str=None):
     inputs = load_inputs(input_str)
     included = []
     for row in inputs:
-        if row[0].start >= row[1].start or row[1].end >= row[0].end:
+        a = range(row[0].start, row[0].end+1)
+        b = range(row[1].start, row[1].end+1)
+        if any(i in a for i in b):
             included.append(row)
-        elif row[1].start >= row[0].start or row[0].end >= row[1].end:
-            included.append(row)
+
     return len(included)
 
 
@@ -74,7 +75,7 @@ def run():
 
     start_time = time.time()
     print("Part 2:")
-    print(solve_part2(test_input_2))
+    print(solve_part2())
     print("Runtime: {} seconds".format(time.time() - start_time))
 
 run()
