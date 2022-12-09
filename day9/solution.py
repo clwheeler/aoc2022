@@ -57,34 +57,29 @@ def manhattan_distance(a, b):
     dist = sum([abs(a[0] - b[0]), abs(a[1] - b[1])])
     return dist
 
-# use average, but it will always a difference of 2
-def follow(hpos, tpos):
-    # overlap
-    x_diff = hpos[0] - tpos[0]
-    y_diff = hpos[1] - tpos[1]
 
-    if hpos == tpos:
-        pass
-    # same x
-    elif x_diff == 0:
-        if manhattan_distance(hpos, tpos) > 1:
-            deltax = 0
-            deltay = (y_diff) / abs(y_diff)
-            return (tpos[0] + deltax, tpos[1] + deltay)
-    # same y
-    elif y_diff == 0:
-        if manhattan_distance(hpos, tpos) > 1:
-            deltax = (x_diff) / abs(x_diff)
-            deltay = 0
-            return (tpos[0] + deltax, tpos[1] + deltay)
-    else:
-        if manhattan_distance(hpos, tpos) > 2:
-            deltax = (x_diff) / abs(x_diff)
-            deltay = (y_diff) / abs(y_diff)
-            return (tpos[0] + deltax, tpos[1] + deltay)
-        # move diag
+# This could be done with some math and rounding to just get position based on
+# higher resolution, but doing it explicitly is clearer
+def follow(lead, follower):
+    deltax = lead[0] - follower[0]
+    deltay = lead[1] - follower[1]
+    man_dist = manhattan_distance(lead, follower)
 
-    return tpos
+    if deltax != 0:
+        deltax = (deltax) / abs(deltax)
+    if deltay != 0:
+        deltay = (deltay) / abs(deltay)
+
+    # same x or y
+    if deltax == 0 or deltay == 0:
+        if man_dist > 1:
+            return (follower[0] + deltax, follower[1] + deltay)
+    # diag
+    elif man_dist > 2:
+        return (follower[0] + deltax, follower[1] + deltay)
+
+    # no movement
+    return follower
 
 def solve_part1(input_str=None):
     inputs = load_inputs(input_str)
@@ -95,7 +90,7 @@ def solve_part1(input_str=None):
     for instruction in inputs:
         direction = instruction.split(' ')[0]
         distance = int(instruction.split(' ')[1])
-        print(direction, distance)
+        # print(direction, distance)
         for x in range(distance):
             for idx in range(len(segments)):
                 if idx == 0:
@@ -109,7 +104,6 @@ def solve_part1(input_str=None):
 
             # print(f"H: {segments[0]}  T: {segments[-1]}")
 
-    print(all_t_locations)
     return(len(list(set(all_t_locations))))
 
 def solve_part2(input_str=None):
@@ -121,7 +115,7 @@ def solve_part2(input_str=None):
     for instruction in inputs:
         direction = instruction.split(' ')[0]
         distance = int(instruction.split(' ')[1])
-        print(direction, distance)
+        # print(direction, distance)
         for x in range(distance):
             for idx in range(len(segments)):
                 if idx == 0:
@@ -135,7 +129,7 @@ def solve_part2(input_str=None):
 
             # print(f"H: {segments[0]}  T: {segments[-1]}")
 
-    print(all_t_locations)
+    # print(all_t_locations)
     return(len(list(set(all_t_locations))))
 
 
