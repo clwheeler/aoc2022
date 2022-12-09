@@ -51,7 +51,7 @@ def manhattan_distance(a, b):
     return dist
 
 # use average, but it will always a difference of 2
-def move_t(hpos, tpos):
+def follow(hpos, tpos):
     # overlap
     x_diff = hpos[0] - tpos[0]
     y_diff = hpos[1] - tpos[1]
@@ -81,8 +81,7 @@ def move_t(hpos, tpos):
 
 def solve_part1(input_str=None):
     inputs = load_inputs(input_str)
-    h_pos = (0, 0)
-    t_pos = (0, 0)
+    segments = [(0, 0), (0, 0)]
 
     all_t_locations = [t_pos]
 
@@ -91,12 +90,17 @@ def solve_part1(input_str=None):
         distance = int(instruction.split(' ')[1])
         print(direction, distance)
         for x in range(distance):
-            h_pos = move_h(h_pos, direction)
-            t_pos = move_t(h_pos, t_pos)
-            all_t_locations.append(t_pos)
-            h_pos = (int(h_pos[0]), int(h_pos[1]))
-            t_pos = (int(t_pos[0]), int(t_pos[1]))
-            print(f"H: {h_pos} T:{t_pos}")
+            for idx in range(len(segments)):
+                if idx == 0:
+                    segments[0] = move_h(h_pos, direction)
+                else:
+                    this = segments[idx]
+                    prev = segments[idx-1]
+                    segments[idx] = follow(prev, this)
+
+            all_t_locations.append(segments[-1])
+
+            print(f"H: {h_pos}  T: {t_pos}")
 
     print(all_t_locations)
     return(len(list(set(all_t_locations))))
