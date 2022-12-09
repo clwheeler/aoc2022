@@ -14,7 +14,14 @@ L 5
 R 2"""
 
 
-test_input_2 = test_input_1
+test_input_2 = """R 5
+U 8
+L 8
+D 3
+R 17
+D 10
+L 25
+U 20"""
 
 def load_inputs(input_str=None):
     inputs = []
@@ -83,7 +90,7 @@ def solve_part1(input_str=None):
     inputs = load_inputs(input_str)
     segments = [(0, 0), (0, 0)]
 
-    all_t_locations = [t_pos]
+    all_t_locations = [segments[-1]]
 
     for instruction in inputs:
         direction = instruction.split(' ')[0]
@@ -92,7 +99,7 @@ def solve_part1(input_str=None):
         for x in range(distance):
             for idx in range(len(segments)):
                 if idx == 0:
-                    segments[0] = move_h(h_pos, direction)
+                    segments[0] = move_h(segments[0], direction)
                 else:
                     this = segments[idx]
                     prev = segments[idx-1]
@@ -100,14 +107,36 @@ def solve_part1(input_str=None):
 
             all_t_locations.append(segments[-1])
 
-            print(f"H: {h_pos}  T: {t_pos}")
+            # print(f"H: {segments[0]}  T: {segments[-1]}")
 
     print(all_t_locations)
     return(len(list(set(all_t_locations))))
 
 def solve_part2(input_str=None):
     inputs = load_inputs(input_str)
-    return None
+    segments = [(0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)]
+
+    all_t_locations = [segments[-1]]
+
+    for instruction in inputs:
+        direction = instruction.split(' ')[0]
+        distance = int(instruction.split(' ')[1])
+        print(direction, distance)
+        for x in range(distance):
+            for idx in range(len(segments)):
+                if idx == 0:
+                    segments[0] = move_h(segments[0], direction)
+                else:
+                    this = segments[idx]
+                    prev = segments[idx-1]
+                    segments[idx] = follow(prev, this)
+
+            all_t_locations.append(segments[-1])
+
+            # print(f"H: {segments[0]}  T: {segments[-1]}")
+
+    print(all_t_locations)
+    return(len(list(set(all_t_locations))))
 
 
 def run():
@@ -119,7 +148,7 @@ def run():
 
     start_time = time.time()
     print("Part 2:")
-    print(solve_part2(test_input_2))
+    print(solve_part2())
     print("Runtime: {} seconds".format(time.time() - start_time))
 
 run()
